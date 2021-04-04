@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { CardList } from './components/card-list/card-list.component';
+import { SearchBox } from './components/search-box/search-box.component';
 import './App.css';
 
 class App extends Component {
@@ -7,7 +8,8 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      monsters: []
+      monsters: [],
+      searchField: ''
     };
   }
 
@@ -20,10 +22,22 @@ class App extends Component {
   // then taking users from response and set monsters to that array of users
 
   render() {
+
+    const { monsters, searchField } = this.state;
+    // Equivalent to const monsters = this.state.monsters
+    const filteredMonsters = monsters.filter( monster => 
+      monster.name.toLowerCase().includes(searchField.toLowerCase()) );
+    // filter() creates a new array
+    // tolowercase makes search not case sensitive
+    // includes() checks if string value is actually in the string its being called on
+
     return (
       <div className="App">
-        <input />
-        <CardList monsters={this.state.monsters} />
+        <SearchBox 
+        placeholder='search monsters'
+        handleChange={ e => this.setState({ searchField: e.target.value }) }
+        />
+        <CardList monsters={filteredMonsters} />
     </div>
     );
   }
