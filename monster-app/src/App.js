@@ -21,6 +21,10 @@ class App extends Component {
   // fetching from URL - taking the response and converting it into JSON format that JS can understand
   // then taking users from response and set monsters to that array of users
 
+  handleChange = (e) => {
+    this.setState({ searchField: e.target.value })
+  }
+
   render() {
 
     const { monsters, searchField } = this.state;
@@ -33,9 +37,10 @@ class App extends Component {
 
     return (
       <div className="App">
+        <h1>Monsters Rolodex</h1>
         <SearchBox 
         placeholder='search monsters'
-        handleChange={ e => this.setState({ searchField: e.target.value }) }
+        handleChange={ this.handleChange }
         />
         <CardList monsters={filteredMonsters} />
     </div>
